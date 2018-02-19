@@ -92,6 +92,72 @@ import React from 'react';
 export default ({ name }) => <p>Hello {name}</p>;
 ```
 
+## \_document
+
+_inspired by [Next.js](https://github.com/zeit/next.js#custom-document)._
+
+You can customize how a view is rendered. Example of a \__document_ to support React-Helmet:
+
+```js
+const React = require('react');
+const { HelmetProvider } = require('react-helmet-async');
+const { renderToString, renderToNodeStream } = require('react-dom/server');
+
+module.exports = View => {
+  const helmetContext = {};
+
+  const appHtml = renderToString(
+    React.createElement(
+      HelmetProvider,
+      { context: helmetContext },
+      React.createElement(View)
+    )
+  );
+
+  const { helmet } = helmetContext;
+
+  const {
+    bodyAttributes,
+    htmlAttributes,
+    link,
+    meta,
+    noscript,
+    script,
+    style,
+    title
+  } = helmet;
+
+  const htmlAttrs = htmlAttributes.toString();
+  const bodyAttrs = bodyAttributes.toString();
+
+  const bodyHtml = renderToString(
+    React.createElement(React.Fragment, null, [
+      link.toComponent(),
+      noscript.toComponent(),
+      style.toComponent(),
+      script.toComponent()
+    ])
+  );
+
+  return renderToNodeStream(
+    React.createElement('html', htmlAttrs, [
+      React.createElement('head', null, [
+        meta.toComponent(),
+        title.toComponent()
+      ]),
+      React.createElement(
+        'body',
+        Object.assign(bodyAttrs, {
+          dangerouslySetInnerHTML: {
+            __html: appHtml + bodyHtml
+          }
+        })
+      )
+    ])
+  );
+};
+```
+
 ## License
 
 BSD-3-Clause
