@@ -1,10 +1,10 @@
 {
-  "name": "hapi-react-views",
+  "name": "hapi-render-react",
   "version": "1.0.0",
   "license": "BSD-3-Clause",
   "description": "React rendering support for hapi.js",
   "keywords": ["react", "hapi", "template", "view"],
-  "repository": "https://github.com/ramitos/hapi-react-views",
+  "repository": "https://github.com/ramitos/hapi-render-react",
   "author": "Sérgio Ramos <mail@sergioramos.me>",
   "main": "src/index.js",
   "scripts": {
