@@ -6,7 +6,7 @@ module.exports = (request, { doc, View, props }) => {
     prepare: response => response.header('content-type', 'text/html'),
     marshal: response => {
       if (doc) {
-        return doc(() => React.createElement(View, props));
+        return doc(() => React.createElement(View, props), request);
       }
 
       return renderToNodeStream(

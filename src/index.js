@@ -34,6 +34,7 @@ exports.plugin = {
         const v = require(viewPathname);
         View = v.default;
       } catch (err) {
+        console.error(err);
         return {};
       }
 
