@@ -1,5 +1,5 @@
-import { renderToNodeStream } from 'react-dom/server';
-import React from 'react';
+const { renderToNodeStream } = require('react-dom/server');
+const React = require('react');
 
 module.exports = (request, { doc, View, props }) => {
   return request.generateResponse(undefined, {

@@ -12,7 +12,7 @@
 
 * [Install](#install)
 * [Usage](#usage)
-  * [_document](#_document)
+  * [\_document](#_document)
 * [License](#license)
 
 ## Install
