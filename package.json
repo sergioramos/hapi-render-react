@@ -16,9 +16,6 @@
     "lint": "eslint . --fix --ext .js --ext .md",
     "fmt": "prettier --write --single-quote *.md src/*.js *.json"
   },
-  "dependencies": {
-    "babel-register": "^6.26.0"
-  },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
     "eslint": "^4.17.0",

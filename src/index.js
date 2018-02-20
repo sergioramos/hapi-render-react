@@ -1,5 +1,4 @@
 const Path = require('path');
-const BabelRegister = require('babel-register');
 
 const pkg = require('../package.json');
 const Render = require('./render');
@@ -13,11 +12,6 @@ exports.plugin = {
   once: true,
   register: async (server, { relativeTo }) => {
     const documentPathname = Path.join(relativeTo, '_document');
-
-    BabelRegister({
-      only: relativeTo,
-      ignore: documentPathname
-    });
 
     const getView = name => {
       const viewPathname = Path.join(relativeTo, name);
