@@ -36,5 +36,8 @@
   "peerDependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
+  },
+  "dependencies": {
+    "mz": "^2.7.0"
   }
 }

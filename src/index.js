@@ -1,4 +1,5 @@
 const Path = require('path');
+const { exists } = require('mz/fs');
 
 const pkg = require('../package.json');
 const Render = require('./render');
@@ -11,9 +12,12 @@ exports.plugin = {
   multiple: false,
   once: true,
   register: async (server, { relativeTo }) => {
-    const documentPathname = Path.join(relativeTo, '_document');
+    const documentPathname = Path.join(relativeTo, '_document.js');
+    const serverErrorPathname = Path.join(relativeTo, 'server-error.js');
+    const hasDocument = await exists(documentPathname);
+    const hasServerError = await exists(serverErrorPathname);
 
-    const getView = name => {
+    const handler = async (request, { name, props }) => {
       const viewPathname = Path.join(relativeTo, name);
 
       if (IS_DEVELOPMENT) {
@@ -25,33 +29,36 @@ exports.plugin = {
       let doc;
 
       try {
-        const v = require(viewPathname);
-        View = v.default;
+        View = require(viewPathname).default;
       } catch (err) {
+        // what to do with this err?
+        // eslint-disable-next-line no-console
         console.error(err);
-        return {};
+
+        if (hasServerError && name !== 'server-error') {
+          return handler(request, { name: 'server-error', props });
+        }
+
+        throw err;
       }
 
       try {
         doc = require(documentPathname);
       } catch (err) {
-        return { View };
+        if (hasDocument) {
+          throw err;
+        }
       }
 
-      return {
-        View,
-        doc
-      };
+      return Render(request, { View, doc, props });
     };
 
     server.decorate('toolkit', 'render', function(name, props) {
-      const { View, doc } = getView(name);
-      return Render(this.request, { doc, View, props });
+      return handler(this.request, { name, props });
     });
 
     server.decorate('handler', 'view', (_, { name, props }) => req => {
-      const { View, doc } = getView(name);
-      return Render(req, { doc, View, props });
+      return handler(req, { name, props });
     });
   }
 };
