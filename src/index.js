@@ -9,16 +9,14 @@ const IS_DEVELOPMENT = NODE_ENV === 'development';
 
 exports.plugin = {
   pkg,
-  multiple: false,
-  once: true,
-  register: async (server, { relativeTo }) => {
-    const documentPathname = Path.join(relativeTo, '_document.js');
-    const serverErrorPathname = Path.join(relativeTo, 'server-error.js');
-    const hasDocument = await exists(documentPathname);
-    const hasServerError = await exists(serverErrorPathname);
-
-    const handler = async (request, { name, props }) => {
+  register: async (server, rootOptions) => {
+    const handler = async (request, { name, props, relativeTo }) => {
+      const documentPathname = Path.join(relativeTo, '_document.js');
+      const serverErrorPathname = Path.join(relativeTo, 'server-error.js');
       const viewPathname = Path.join(relativeTo, name);
+
+      const hasDocument = await exists(documentPathname);
+      const hasServerError = await exists(serverErrorPathname);
 
       if (IS_DEVELOPMENT) {
         delete require.cache[viewPathname];
@@ -53,12 +51,12 @@ exports.plugin = {
       return Render(request, { View, doc, props });
     };
 
-    server.decorate('toolkit', 'render', function(name, props) {
-      return handler(this.request, { name, props });
+    server.decorate('toolkit', 'render', function(name, props, options) {
+      return handler(this.request, Object.assign(rootOptions, options, { name, props }));
     });
 
-    server.decorate('handler', 'view', (_, { name, props }) => req => {
-      return handler(req, { name, props });
+    server.decorate('handler', 'view', (_, { name, props, ...options }) => req => {
+      return handler(req, Object.assign(rootOptions, options, { name, props }));
     });
   }
 };
