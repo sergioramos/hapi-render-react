@@ -41,7 +41,8 @@ exports.plugin = {
       }
 
       try {
-        doc = require(documentPathname);
+        const _doc = require(documentPathname);
+        doc = _doc.default || doc;
       } catch (err) {
         if (hasDocument) {
           throw err;
