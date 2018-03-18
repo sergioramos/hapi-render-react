@@ -38,6 +38,7 @@
     "react-dom": "^16.2.0"
   },
   "dependencies": {
+    "clear-module": "^2.1.0",
     "mz": "^2.7.0"
   }
 }
