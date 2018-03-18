@@ -1,4 +1,5 @@
 const Path = require('path');
+const clearModule = require('clear-module');
 const { exists } = require('mz/fs');
 
 const pkg = require('../package.json');
@@ -19,15 +20,16 @@ exports.plugin = {
       const hasServerError = await exists(serverErrorPathname);
 
       if (IS_DEVELOPMENT) {
-        delete require.cache[viewPathname];
-        delete require.cache[documentPathname];
+        clearModule(viewPathname);
+        clearModule(documentPathname);
       }
 
       let View;
       let doc;
 
       try {
-        View = require(viewPathname).default;
+        const _view = require(viewPathname);
+        View = _view.default || _view;
       } catch (err) {
         // what to do with this err?
         // eslint-disable-next-line no-console
