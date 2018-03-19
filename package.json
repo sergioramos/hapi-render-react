@@ -3,18 +3,21 @@
   "version": "2.5.0",
   "license": "BSD-3-Clause",
   "description": "React rendering support for hapi.js",
-  "keywords": [
-    "react",
-    "hapi",
-    "template",
-    "view"
-  ],
+  "keywords": ["react", "hapi", "template", "view"],
   "repository": "https://github.com/ramitos/hapi-render-react",
   "author": "Sérgio Ramos <mail@sergioramos.me>",
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint . --fix --ext .js --ext .md",
     "fmt": "prettier --config .prettierrc --write '**/*'"
+  },
+  "dependencies": {
+    "clear-module": "^2.1.0",
+    "get-stream": "^3.0.0",
+    "is-stream": "^1.1.0",
+    "lodash.isstring": "^4.0.1",
+    "mz": "^2.7.0",
+    "p-is-promise": "^1.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",
@@ -36,9 +39,5 @@
   "peerDependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
-  },
-  "dependencies": {
-    "clear-module": "^2.1.0",
-    "mz": "^2.7.0"
   }
 }
