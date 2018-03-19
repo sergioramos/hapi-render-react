@@ -55,6 +55,7 @@ Main(async () => {
     handler: {
       view: {
         name: 'home',
+        dynamic: false, // true by default. if !dynamic, it generates an .html and always serves said file
         props: {
           hello: 'world'
         }

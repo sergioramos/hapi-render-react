@@ -3,33 +3,28 @@
   "version": "2.4.1",
   "license": "BSD-3-Clause",
   "description": "React rendering support for hapi.js",
-  "keywords": [
-    "react",
-    "hapi",
-    "template",
-    "view"
-  ],
+  "keywords": ["react", "hapi", "template", "view"],
   "repository": "https://github.com/ramitos/hapi-render-react",
   "author": "Sérgio Ramos <mail@sergioramos.me>",
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint . --fix --ext .js --ext .md",
-    "fmt": "prettier --write --single-quote *.md src/*.js *.json"
+    "fmt": "prettier --config .prettierrc --write '**/*'"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.1",
-    "eslint": "^4.17.0",
+    "babel-eslint": "^8.2.2",
+    "eslint": "^4.19.0",
     "eslint-config-joyent-portal": "^3.3.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-react-app": "^2.1.0",
     "eslint-config-xo-space": "^0.18.0",
-    "eslint-plugin-flowtype": "^2.45.0",
-    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-flowtype": "^2.46.1",
+    "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-markdown": "^1.0.0-beta.6",
     "eslint-plugin-prettier": "^2.6.0",
-    "eslint-plugin-react": "^7.6.1",
-    "prettier": "^1.10.2",
+    "eslint-plugin-react": "^7.7.0",
+    "prettier": "^1.11.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   },
