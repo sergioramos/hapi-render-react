@@ -57,7 +57,7 @@ exports.plugin = {
 
       try {
         const _doc = require(documentPathname);
-        doc = _doc.default || doc;
+        doc = _doc.default || _doc;
       } catch (err) {
         if (hasDocument) {
           throw err;
