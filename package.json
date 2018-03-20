@@ -1,6 +1,6 @@
 {
   "name": "hapi-render-react",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "license": "BSD-3-Clause",
   "description": "React rendering support for hapi.js",
   "keywords": [
